@@ -74,4 +74,15 @@ describe("Lottery Contract", () => {
       assert.ok(err);
     }
   });
+
+  it("should only let managers pick a winner", async () => {
+    try {
+      await lottery.methods.pickWinner().call({
+        from: accounts[1]
+      });
+      assert(false);
+    } catch (err) {
+      assert.ok(err);
+    }
+  });
 });
