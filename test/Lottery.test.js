@@ -59,4 +59,19 @@ describe("Lottery Contract", () => {
     // Checks the length of the players array. This should be one
     assert.equal(2, players.length);
   });
+
+  it("requires a minimum amount of ether to enter", async () => {
+    try {
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: "200"
+      });
+      // Common pattern to check if contract fails. If the above doesnt fail
+      // line below is called and we do not enter the catch block
+      // and the test fails
+      assert(false);
+    } catch (err) {
+      assert.ok(err);
+    }
+  });
 });
